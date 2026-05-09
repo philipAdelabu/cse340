@@ -1,5 +1,67 @@
-<footer>
-    <p>&copy; <%= new Date().getFullYear() %> CSE 340 Service Network.</p>
+
+<footer class="site-footer">
+  <div class="container footer-inner">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="logo-icon" style="background: white; -webkit-background-clip: text; background-clip: text; color: #b9cced;"><i class="fas fa-cloud-moon"></i></div>
+        <div class="logo-text"><h2 style="color:white;">CSE340</h2></div>
+        <p>.</p>
+      </div>
+      <div class="footer-links">
+        <div class="link-column">
+          <h4>Explore</h4>
+          <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="/organizations">Organizations</a></li>
+            <li><a href="/projects">Projects</a></li>
+            <li><a href="/categories">Categories</a></li>
+          </ul>
+        </div>
+        <div class="link-column">
+          <h4>Resources</h4>
+          <ul>
+            <li><a href="#">Documentation</a></li>
+            <li><a href="#">Style Guide</a></li>
+            <li><a href="#">Support</a></li>
+          </ul>
+        </div>
+        <div class="link-column newsletter">
+          <h4>Join CSE340</h4>
+          <p style="font-size: 0.8rem; opacity:0.8;">Fresh insights, modern inspiration.</p>
+          <div class="newsletter-form">
+            <input type="email" placeholder="your@email.com">
+            <button><i class="fas fa-paper-plane"></i></button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div><p>&copy; <%= new Date().getFullYear() %> CSE 340 Service Network.</p></div>
+      <div class="social-icons">
+        <i class="fab fa-twitter"></i>
+        <i class="fab fa-dribbble"></i>
+        <i class="fab fa-github"></i>
+        <i class="fab fa-instagram"></i>
+      </div>
+    </div>
+  </div>
 </footer>
+
+<!-- optional tiny effect: sticky header shadow on scroll -->
+<script>
+  (function() {
+    const header = document.querySelector('.site-header');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 10) {
+        header.style.boxShadow = '0 8px 24px rgba(0,0,0,0.05)';
+        header.style.background = 'rgba(255,255,255,0.96)';
+      } else {
+        header.style.boxShadow = 'none';
+        header.style.background = 'rgba(255, 255, 255, 0.92)';
+      }
+    });
+  })();
+</script>
 </body>
 </html>
+

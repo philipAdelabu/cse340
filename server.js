@@ -33,7 +33,7 @@ app.get('/projects', (req, res) => {
     res.render('projects', {title});
 });
 
-app.get('categories', (req, res) => {
+app.get('/categories', (req, res) => {
     const title = 'Projects Categories';
     res.render('categories', {title});
 })
