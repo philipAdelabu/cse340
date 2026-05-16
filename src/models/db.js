@@ -11,8 +11,14 @@ import { Pool } from 'pg';
  * The connection string format is:
  * postgresql://username:password@host:port/database
  */
+// dpg-d845rp57vvec73f015jg-a.oregon-postgres.render.com
+// connectionString: process.env.DB_URL,
 const pool = new Pool({
-    connectionString: process.env.DB_URL,
+    user: 'philip_cse340_db',
+    host: 'dpg-d845rp57vvec73f015jg-a.oregon-postgres.render.com',
+    database: 'philip_cse340_db',
+    password: 'O84KKjDFgz9V7d6hnScTvS0B0SMWxy9k',
+    port: 5432,
     ssl: true
 });
 
@@ -88,4 +94,4 @@ const testConnection = async() => {
     }
 };
 
-export { db as default, testConnection };
+export {db, testConnection};

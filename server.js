@@ -1,6 +1,14 @@
-import { testConnection } from './src/models/db.js';
-const express = require('express');
-const path = require('path');
+import { testConnection }  from './src/models/db.js';
+import { getAllOrganizations } from './src/models/organizations.js';
+import  express from 'express';
+import path from 'path';
+
+// ES module version
+import { fileURLToPath } from 'url';
+
+// Get __filename and __dirname equivalents
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 
 
@@ -24,9 +32,10 @@ app.get('/', (req, res) => {
     res.render('home', {title})
 });
 
-app.get('/organizations', (req, res) => {
+app.get('/organizations', async (req, res) => {
+    const organizations = await getAllOrganizations();
     const title = 'Our Partner Organizations';
-    res.render('organizations', {title});
+    res.render('organizations', {title, organizations});
 });
 
 app.get('/projects', (req, res) => {

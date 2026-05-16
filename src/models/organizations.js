@@ -1,0 +1,12 @@
+import { db } from './db.js';
+
+export const getAllOrganizations = async() => {
+    const query = `
+        SELECT organization_id, name, description, contact_email, logo_filename
+      FROM organizations;
+    `;
+
+    const result = await db.query(query);
+
+    return result.rows;
+}
