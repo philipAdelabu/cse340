@@ -6,6 +6,15 @@ create table if not exists organizations (
     logo_filename varchar(255)
 );
 
+-- ========================================
+-- Insert sample data: Organizations
+-- ========================================
+INSERT INTO organization (name, description, contact_email, logo_filename)
+VALUES
+('BrightFuture Builders', 'A nonprofit focused on improving community infrastructure through sustainable construction projects.', 'info@brightfuturebuilders.org', 'brightfuture-logo.png'),
+('GreenHarvest Growers', 'An urban farming collective promoting food sustainability and education in local neighborhoods.', 'contact@greenharvest.org', 'greenharvest-logo.png'),
+('UnityServe Volunteers', 'A volunteer coordination group supporting local charities and service initiatives.', 'hello@unityserve.org', 'unityserve-logo.png');
+
 create table if not exists projects (
     project_id serial primary key,
     organization_id int references organizations(organization_id) on delete cascade,
