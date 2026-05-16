@@ -11,14 +11,9 @@ import { Pool } from 'pg';
  * The connection string format is:
  * postgresql://username:password@host:port/database
  */
-// dpg-d845rp57vvec73f015jg-a.oregon-postgres.render.com
-// connectionString: process.env.DB_URL,
+// postgresql://philip_cse340_db:O84KKjDFgz9V7d6hnScTvS0B0SMWxy9k@dpg-d845rp57vvec73f015jg-a.oregon-postgres.render.com:5432/philip_cse340_db
 const pool = new Pool({
-    user: 'philip_cse340_db',
-    host: 'dpg-d845rp57vvec73f015jg-a.oregon-postgres.render.com',
-    database: 'philip_cse340_db',
-    password: 'O84KKjDFgz9V7d6hnScTvS0B0SMWxy9k',
-    port: 5432,
+    connectionString: process.env.DB_URL,
     ssl: true
 });
 
