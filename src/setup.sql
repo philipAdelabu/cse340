@@ -46,3 +46,24 @@ insert into projects (organization_id, title, description, location, date) value
 (1, 'Community Fitness Classes', 'Lead fitness classes in the park to promote health and wellness in our community.', '123 Green St, Springfield', '2024-10-05'),
 (2, 'Neighborhood Beautification', 'Join us in beautifying our neighborhood through planting flowers and cleaning up public spaces.', '456 Elm St, Springfield', '2024-09-30'),
 (3, 'Community Book Club', 'Help organize and run a community book club to encourage reading and discussion among residents.', '789 Oak St, Springfield', '2024-11-20');
+
+
+create table if not exists categories (
+    category_id serial primary key,
+    name varchar(255) not null,
+    created_at date default now()
+)
+
+create table if not exists project_category (
+    project_id INTEGER,
+    category_id INTEGER,
+    primary key (project_id, category_id), -- composite key --
+    foreign key (project_id) references projects(project_id),
+    foreign key (category_id) references categories(category_id)
+)
+
+insert into categories (name) 
+values ('Environmental'), ('Educational'),  ('Community Service'), ('Health and Wellness');
+
+insert into project_category (project_id, category_id) 
+values (1, 2), (2, 1), (3, 3), (2, 4);
