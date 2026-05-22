@@ -1,18 +1,25 @@
-d:\software\software\postgresql-18.3-2-windows-x64.exe <%- include('partials/header') %>
+<%- include('partials/header') %>
   
     <main>
         <h2>Details of <%= title %></h2>
-        <ul>
+        
            <% if(project) { %>
-             <li><strong><%= project.title %></strong></li>
-             <li><strong>Date:</strong> <%= (project.date).toLocaleDateString('en-GB') %></li>
-             <li><strong>Location:</strong> <%= project.location %></li>
-             <li><strong>Description:</strong> <%= project.project_description %></li>
-             <li><strong>Organization:</strong> <a href="/organization/<%= project.organization_id %>"><%= project.organization_name %></a></li>
+         <strong><%= project.title %></strong><br>
+        <strong>Date:</strong> <%= (project.date).toLocaleDateString('en-GB') %><br>
+        <strong>Location:</strong> <%= project.location %><br>
+        <strong>Description:</strong> <%= project.description %><br>
+    
+        <strong>Organization:</strong> <a href="/organization/<%= project.organization_id %>"><%= project.organization_name %></a><br>
+              <br>
+            <h3>Project Category</h3>
+                 <% categories.forEach(category => { %>
+                <li><a href="/category/<%= category.category_id %>"><%= category.name %></a></li>
+            <% }) %>  
               <% } else { %>
-                <li>Project not found.</li>
+                  Project not found.
                 <% } %>
      
-        </ul>
+      
+         
     </main>
 <%- include('partials/footer') %>
