@@ -36,7 +36,14 @@
       </div>
     </div>
     <div class="footer-bottom">
-      <div><p>&copy; <%= new Date().getFullYear() %> CSE 340 Service Network.</p></div>
+      <div>
+           <p>&copy; <%= new Date().getFullYear() %> CSE 340 Service Network.
+        <% if (NODE_ENV && NODE_ENV === 'development') { %>
+            (Development mode)
+        <% } %>
+        
+        </p>
+      </div>
       <div class="social-icons">
         <i class="fab fa-twitter"></i>
         <i class="fab fa-dribbble"></i>

@@ -1,6 +1,6 @@
 import { db } from './db.js';
 
-export const getAllProjects = async() => {
+ const getAllProjects = async() => {
     const query = `
         SELECT o.organization_id, o.name, o.description, o.contact_email, o.logo_filename, 
         p.project_id, p.title, p.description AS project_description, P.date, p.location
@@ -11,3 +11,5 @@ export const getAllProjects = async() => {
 
     return result.rows;
 }
+
+export { getAllProjects };
