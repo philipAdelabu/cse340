@@ -1,10 +1,20 @@
-import { getAllProjects } from '../models/projects'
+import { getProjectDetails, getUpcomingProjects } from '../models/projects.js';
 
 const showProjectsPage = async (req, res) => {
-    const projects = await getAllProjects();
-    const title = 'Service Projects';
+    const  NUMBER_OF_UPCOMING_PROJECTS = 5;
+    const projects = await getUpcomingProjects( NUMBER_OF_UPCOMING_PROJECTS);
+    const title = 'Upcoming Service Projects';
     res.render('projects', {title, projects});
 };
 
-
-export { showProjectsPage };
+const showProjectDetailsPage = async (req, res) => {
+    const projectId = req.params.id;
+    const project = await getProjectDetails(projectId);
+    if (!project) {
+        return res.status(404).send('Project not found');
+    }
+    const title = project.title;
+    res.render('project', {title, project});
+};
+    
+export { showProjectsPage, showProjectDetailsPage };
