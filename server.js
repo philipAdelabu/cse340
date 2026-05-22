@@ -29,12 +29,14 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // Middleware to log all incoming requests
 app.use((req, res, next) => {
+
     if (NODE_ENV === 'development') {
         console.log(`${req.method} ${req.url}`);
         res.locals.NODE_ENV = NODE_ENV;
     }
     next(); // Pass control to the next middleware or route
 });
+
 
 
 // Use the imported router to handle routes
