@@ -6,14 +6,7 @@ create table if not exists organizations (
     logo_filename varchar(255)
 );
 
-/**
- 
-DB_URL=postgresql://philip_cse340_db:O84KKjDFgz9V7d6hnScTvS0B0SMWxy9k@dpg-d845rp57vvec73f015jg-a.oregon-postgres.render.com:5432/philip_cse340_db
-NODE_ENV=development
-PORT=3000
-ENABLE_SQL_LOGGING=true
 
-**/
 
 -- ========================================
 -- Insert sample data: Organizations
