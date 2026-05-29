@@ -24,8 +24,14 @@ app.set('view engine', 'ejs');
 // Tell Express where to find the templates
 app.set('views', path.join(__dirname, 'src/views'));
 
+// Middleware to parse URL-encoded bodies (for form submissions)
+app.use(express.urlencoded({extended: true}));
+app.use(express.json()); // Middleware to parse JSON bodies (for API requests)  
+
+
 // Serve static files from the public directory
 app.use(express.static(path.join(__dirname, 'public')));
+
 
 // Middleware to log all incoming requests
 app.use((req, res, next) => {
