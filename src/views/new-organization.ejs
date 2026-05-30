@@ -9,6 +9,8 @@
         type="text"
         id="name"
         name="name"
+        required
+         maxLength="150"
       />
     </div>
 
@@ -16,20 +18,21 @@
       <label for="description">Description</label>
       <textarea
         id="description"
-        name="description"
+        name="description" required maxLength="500"
       ></textarea>
     </div>
 
     <div class="form-group">
       <label for="contactEmail">Contact Email</label>
       <input
-        type="text"
+        type="email"
         id="contactEmail"
         name="contactEmail"
+        required 
       />
     </div>
 
-    <button type="submit">Create Organization</button>
+    <button class="btn btn-primary" type="submit">Create Organization</button>
   </form>
 
 </main>

@@ -1,9 +1,11 @@
 
 import express from 'express';
+import session from 'express-session';
 import { fileURLToPath } from 'url';
 import path from 'path';
 import { testConnection } from './src/models/db.js';
 import router from './src/routes.js';
+import flash from './src/middleware/flash.js';
 
 
 // Get __filename and __dirname equivalents
@@ -18,6 +20,15 @@ const PORT = process.env.PORT || 3000;
 
 const app = express();
 
+// Set up session middleware
+app.use(session({
+    secret: process.env.SESSION_SECRET,
+    resave: false,
+    saveUninitialized: true, 
+    cookie: { maxAge: 60*60*1000 }
+}));
+
+app.use(flash); // Use the combined flash middleware for both session management and template access
 // Set EJS as the templating engine
 app.set('view engine', 'ejs');
 
