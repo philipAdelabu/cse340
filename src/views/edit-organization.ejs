@@ -1,57 +1,59 @@
+
 <%- include('partials/header') %>
 <main>
     <h1><%= title %></h1>
 
- <form action="/edit-organization/<%= organizationDetails.organization_id %>" method="POST">
-    <div class="form-group">
-      <label for="name">Organization Name</label>
-      <input
-        type="text"
-        id="name"
-        name="name"
-        value="<%= organizationDetails.name %>"
-        maxlength="150"
-        required
-      />
+     <div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8 col-lg-6">
+            <!-- Form Card Wrapper -->
+            <div class="shadow-sm border-0 rounded-3">
+                <div class="card-body ml-3">
+                                
+                    <form action="/edit-organization/<%= organizationDetails.organization_id %>" method="POST"   class="needs-validation">
+                        
+                        <!-- Row for First & Last Name -->
+                        <div class="row g-3 mb-3">
+                            <div class="col-sm-12 col-lg-6">
+                                <label for="name" class="form-label">Organization Name</label>
+                                <input type="text" value="<%= organizationDetails.name %>" class="form-control" id="name" name="name" maxLength="150" required>
+                            </div>
+                        </div>
+
+                         <div class="row g-3 mb-3">
+                            <div class="col-sm-12 col-lg-6">
+                                <label for="description" class="form-label">Description</label>
+                                <textarea class="form-control" id="description" name="description" maxLength="500" required><%= organizationDetails.description %></textarea>
+                            </div>
+                        </div>
+
+                         <div class="row g-3 mb-3">
+                            <div class="col-sm-12 col-lg-6">
+                                <label for="contactEmail" class="form-label">Contact Email</label>
+                                <input type="email" class="form-control"  value="<%= organizationDetails.contact_email %>" maxlength="255" id="contactEmail" name="contactEmail" required>
+                            </div>
+                        </div>
+
+                   
+                         <div class="row g-3 mb-3">
+                            <div class="col-sm-12 col-lg-6">
+                                <label for="logoFilename" class="form-label">Logo Filename</label>
+                                <input type="text" class="form-control" value="<%= organizationDetails.logo_filename %>" id="logoFilename" name="logoFilename" maxLength="255" required>
+                            </div>
+                         </div>
+                      
+                        <!-- Submit Button -->
+                        <button type="submit" class="btn btn-primary w-100 py-2 fw-semibold">Update Organization</button>
+                        
+                    </form>
+                    
+                </div>
+            </div>
+            <!-- End Form Card -->
+        </div>
     </div>
+</div>
 
-    <div class="form-group">
-      <label for="description">Description</label>
-      <textarea
-        id="description"
-        name="description"
-        maxlength="500"
-        required
-      ><%= organizationDetails.description %></textarea>
-    </div>
-
-    <div class="form-group">
-      <label for="contactEmail">Contact Email</label>
-      <input
-        type="email"
-        id="contactEmail"
-        name="contactEmail"
-        maxlength="255"
-        required
-        value="<%= organizationDetails.contact_email %>"
-      />
-    </div>
-
-    <div class="form-group">
-      <label for="logoFilename">Logo Filename</label>
-      <input
-        type="text"
-        id="logoFilename"
-        name="logoFilename"
-        maxlength="255"
-        required
-        value="<%= organizationDetails.logo_filename %>"
-      />
-    </div>
-
-
-    <button type="submit">Update Organization</button>
-  </form>
 
 </main>
 <%- include('partials/footer') %>

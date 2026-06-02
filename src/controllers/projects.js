@@ -1,4 +1,43 @@
-import {  getUpcomingProjects, getProjectDetailsById, getCategoriesByProjectId } from '../models/projects.js';
+import {  getUpcomingProjects, 
+    getProjectDetailsById, 
+    getCategoriesByProjectId, updateProject } from '../models/projects.js';
+    import { updateCategoryAssignments } from '../models/categories.js';
+import { getAllOrganizations } from '../models/organizations.js';
+import { getAllCategories } from '../models/categories.js';
+import { getCategoryByProjectId } from '../models/categories.js';
+import { createProject } from '../models/projects.js';
+import { validationResult, body } from 'express-validator';
+import { redirectError } from '../utils/redirectError.js';
+
+
+const projectValidation = [
+    body('title')
+        .trim()
+        .notEmpty()
+        .withMessage('Project title is required')
+        .isLength({ min: 3, max: 150 })
+        .withMessage('Project title must be between 3 and 150 characters'),
+    body('description')
+        .trim()
+        .notEmpty()
+        .withMessage('Project description is required')
+        .isLength({ max: 500 })
+        .withMessage('Project description cannot exceed 500 characters'),
+    body('location')
+        .trim()
+        .notEmpty()
+        .withMessage('Project location is required'),
+    body('date')
+        .notEmpty()
+        .withMessage('Project date is required')
+        .isISO8601()
+        .withMessage('Please provide a valid date'),
+    body('organizationId')
+        .notEmpty()
+        .withMessage('Organization selection is required')  
+
+];
+
 
 const showProjectsPage = async (req, res) => {
     const  NUMBER_OF_UPCOMING_PROJECTS = 5;
@@ -26,6 +65,14 @@ const showNewProjectForm = async (req, res) => {
 }
 
 const processNewProjectForm = async (req, res) => {
+    const validation = validationResult(req);
+    if (!validation.isEmpty()) {
+        validation.array().forEach((error) => {
+            req.flash('error', error.msg);
+        });
+        return res.redirect('/new-project');
+    }
+
     // Extract form data from req.body
     const { title, description, location, date, organizationId } = req.body;
 
@@ -41,9 +88,51 @@ const processNewProjectForm = async (req, res) => {
         res.redirect('/new-project');
     }
 }
+
+ const showEditProjectForm = async (req, res) => {
+    const projectId = req.params.id;
+    const project = await getProjectDetailsById(projectId);
+    if (!project) {
+        return res.status(404).send('Project not found');
+    }
+    const organizations = await getAllOrganizations();
+    const categories = await getAllCategories();
+    const assignedCategories = await getCategoriesByProjectId(projectId);
+    const title = `Edit Project: ${project.title}`;
+
+    res.render('edit-project', { title, project, organizations, categories, assignedCategories });
+}
+
+const processEditProjectForm = async (req, res) => {
+    const projectId = req.params.id;
+    const { title, description, location, date, organizationId, categoryIds } = req.body;
+
+    const validation = validationResult(req);
+    if (!validation.isEmpty()) {
+        validation.array().forEach((error) => {
+            req.flash('error', error.msg);
+        });
+        return res.redirect(`/edit-project/${projectId}`);
+    }
+
+    try {
+        await updateProject(projectId, title, description, location, date, organizationId);
+       
+        req.flash('success', 'Project updated successfully!');
+        res.redirect(`/project/${projectId}`);
+    } catch (error) {
+        console.error('Error updating project:', error);
+        req.flash('error', 'There was an error updating the project.');
+        res.redirect(`/edit-project/${projectId}`);
+    };
+};
     
-export { showProjectsPage, 
-     showProjectDetailsPage,
-     processNewProjectForm,
-     showNewProjectForm,
+export { 
+        showProjectsPage, 
+        showProjectDetailsPage,
+       processNewProjectForm,
+       showNewProjectForm,
+        showEditProjectForm,
+        processEditProjectForm,
+        projectValidation,
      };

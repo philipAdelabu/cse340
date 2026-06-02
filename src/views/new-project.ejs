@@ -1,0 +1,68 @@
+<%- include('partials/header') %>
+<main>
+    <h1><%= title %></h1>   
+
+     <div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8 col-lg-6">
+            <!-- Form Card Wrapper -->
+            <div class="shadow-sm border-0 rounded-3">
+                <div class="card-body ml-3">
+                                
+                    <form action="/new-project" method="POST"class="needs-validation">
+                        
+                        <!-- Row for First & Last Name -->
+                        <div class="row g-3 mb-3">
+                            <div class="col-sm-12 col-lg-6">
+                                <label for="title" class="form-label">Project Title</label>
+                                <input type="text" class="form-control" id="title" name="title" maxLength="150" required>
+                            </div>
+                        </div>
+
+                         <div class="row g-3 mb-3">
+                            <div class="col-sm-12 col-lg-6">
+                                <label for="description" class="form-label">Description</label>
+                                <textarea class="form-control" id="description" name="description" maxLength="500" required></textarea>
+                            </div>
+                        </div>
+
+                         <div class="row g-3 mb-3">
+                            <div class="col-sm-12 col-lg-6">
+                                <label for="location" class="form-label">Location</label>
+                                <input type="text" class="form-control" id="location" name="location" maxLength="255" required>
+                            </div>
+                        </div>
+
+                        <div class="row g-3 mb-3">
+                            <div class="col-sm-12 col-lg-6">
+                                <label for="date" class="form-label">Date</label>
+                                <input type="date" class="form-control" id="date" name="date" required>
+                            </div>
+                        </div>
+
+                         <div class="row g-3 mb-3">
+                            <div class="col-sm-12 col-lg-6">
+                                <label class="form-label" for="organization">Organization</label>
+                                <select  class="form-control" id="organization" name="organizationId" required>
+                                    <% organizations.forEach(org => { %>
+                                        <option value="<%= org.organization_id %>"  ><%= org.name %></option>
+                                    <% }); %>
+                                </select>
+                            </div>
+                        </div>
+                      
+                        <!-- Submit Button -->
+                        <button type="submit" class="btn btn-primary w-100 py-2 fw-semibold">Create Project</button>
+                        
+                    </form>
+                    
+                </div>
+            </div>
+            <!-- End Form Card -->
+        </div>
+    </div>
+</div>
+
+
+</main>
+<%- include('partials/footer') %>
