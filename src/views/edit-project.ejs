@@ -15,14 +15,14 @@
                         <div class="row g-3 mb-3">
                             <div class="col-sm-12 col-lg-6">
                                 <label for="title" class="form-label">Project Title</label>
-                                <input type="text" class="form-control" id="title" name="title" maxLength="150" value="<%= project.title %>" required>
+                                <input type="text" class="form-control" id="title" name="title" minLength="3" maxLength="150" value="<%= project.title %>" required>
                             </div>
                         </div>
 
                          <div class="row g-3 mb-3">
                             <div class="col-sm-12 col-lg-6">
                                 <label for="description" class="form-label">Description</label>
-                                <textarea class="form-control" id="description" name="description" maxLength="500" required><%= project.description %></textarea>
+                                <textarea class="form-control" id="description" name="description" minLength="3" maxLength="500" required><%= project.description %></textarea>
                             </div>
                         </div>
 

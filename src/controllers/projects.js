@@ -21,8 +21,8 @@ const projectValidation = [
         .trim()
         .notEmpty()
         .withMessage('Project description is required')
-        .isLength({ max: 500 })
-        .withMessage('Project description cannot exceed 500 characters'),
+        .isLength({ min: 3, max: 500 })
+        .withMessage('Project description must be between 3 and 500 characters'),
     body('location')
         .trim()
         .notEmpty()
