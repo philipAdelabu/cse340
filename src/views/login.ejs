@@ -10,18 +10,25 @@
             <div class="shadow-sm border-0 rounded-3">
                 <div class="card-body ">
                                 
-                    <form action="/new-category" method="POST" class="needs-validation">
+                    <form action="/login" method="POST" class="needs-validation">
                         
-                        <!-- Row for First & Last Name -->
+             
+                            <div class="row g-3 mb-3">
+                            <div class="col-sm-12 col-lg-6">
+                                <label for="email" class="form-label">Email (username)</label>
+                                <input type="email" class="form-control" id="email" name="email" required>
+                            </div>
+                        </div>
+
                         <div class="row g-3 mb-3">
                             <div class="col-sm-12 col-lg-6">
-                                <label for="name" class="form-label">Category Name</label>
-                                <input type="text" class="form-control" id="name" name="name" minLength="3" maxLength="100" required>
+                                <label for="password" class="form-label">Password</label>
+                                <input type="password" class="form-control" id="password" name="password" required>
                             </div>
                         </div>
                       
                         <!-- Submit Button -->
-                        <button type="submit" class="btn btn-primary w-100 py-2 fw-semibold">Create category</button>
+                        <button type="submit" class="btn btn-primary w-100 py-2 fw-semibold">Login</button>
                         
                     </form>
                     

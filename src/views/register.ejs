@@ -1,0 +1,53 @@
+<%-  include('partials/header') %>
+
+<main>
+    <h1><%= title %></h1>
+
+    <div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8 col-lg-6">
+            <!-- Form Card Wrapper -->
+            <div class="shadow-sm border-0 rounded-3">
+                <div class="card-body ">
+                                
+                    <form action="/register" method="POST" class="needs-validation">
+                        
+                        <!-- Row for First & Last Name -->
+                        <div class="row g-3 mb-3">
+                            <div class="col-sm-12 col-lg-6">
+                                <label for="name" class="form-label">Name</label>
+                                <input type="text" class="form-control" id="name" name="name" minLength="3" maxLength="100" required>
+                            </div>
+                        </div>
+
+                            <div class="row g-3 mb-3">
+                            <div class="col-sm-12 col-lg-6">
+                                <label for="email" class="form-label">Email (username)</label>
+                                <input type="email" class="form-control" id="email" name="email" required>
+                            </div>
+                        </div>
+
+                        <div class="row g-3 mb-3">
+                            <div class="col-sm-12 col-lg-6">
+                                <label for="password" class="form-label">Password</label>
+                                <input type="password" class="form-control" id="password" name="password" minLength="6" maxLength="100" required>
+                            </div>
+                        </div>
+                      
+                        <!-- Submit Button -->
+                        <button type="submit" class="btn btn-primary w-100 py-2 fw-semibold">Register</button>
+                        
+                    </form>
+                    
+                </div>
+            </div>
+            <!-- End Form Card -->
+        </div>
+    </div>
+</div>
+
+
+</main>
+
+
+<%- include('partials/footer') %>

@@ -29,9 +29,11 @@
         <span>design · code</span>
       </div>
     </div>
-    <button class="header-cta" aria-label="Get started">
-      <i class="fas fa-sparkle"></i> Get inspired
-    </button>
+      <% if (isLoggedIn) { %>
+    <a class="header-cta" aria-label="Get started" href="/dashboard">
+      <i class="fas fa-sparkle"></i> Dashboard
+    </a>
+    <% } %>
   </div>
 </header>
 
@@ -42,6 +44,14 @@
       <a href="/organizations">Organizations</a>
       <a href="/projects">Projects</a>
       <a href="/categories">Categories</a>
+
+       <% if (isLoggedIn) { %>
+        <a href="/logout">Logout</a>
+      <% } else { %>
+         <a href="/register">Register</a>
+         <a href="/login">Login</a>
+      <% }%>
+      
     </div>
   </div>
 </nav>

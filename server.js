@@ -47,10 +47,18 @@ app.use(express.static(path.join(__dirname, 'public')));
 // Middleware to log all incoming requests
 app.use((req, res, next) => {
 
+    res.locals.isLoggedIn = false;
+    if (req.session && req.session.user) {
+        res.locals.isLoggedIn = true;
+    }
+
+     res.locals.user = req.session.user || null;
+
     if (NODE_ENV === 'development') {
         console.log(`${req.method} ${req.url}`);
         res.locals.NODE_ENV = NODE_ENV;
     }
+
     next(); // Pass control to the next middleware or route
 });
 

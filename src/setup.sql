@@ -1,6 +1,6 @@
 create table if not exists organizations (
     organization_id serial primary key,
-    name varchar(255) not null,
+    name varchar(255) unique not null,
     description text,
     contact_email varchar(255),
     logo_filename varchar(255)
@@ -11,7 +11,7 @@ create table if not exists organizations (
 -- ========================================
 -- Insert sample data: Organizations
 -- ========================================
-INSERT INTO organization (name, description, contact_email, logo_filename)
+INSERT INTO organizations (name, description, contact_email, logo_filename)
 VALUES
 ('BrightFuture Builders', 'A nonprofit focused on improving community infrastructure through sustainable construction projects.', 'info@brightfuturebuilders.org', 'brightfuture-logo.png'),
 ('GreenHarvest Growers', 'An urban farming collective promoting food sustainability and education in local neighborhoods.', 'contact@greenharvest.org', 'greenharvest-logo.png'),
@@ -52,9 +52,9 @@ insert into projects (organization_id, title, description, location, date) value
 
 create table if not exists categories (
     category_id serial primary key,
-    name varchar(255) not null,
+    name varchar(255) unique not null,
     created_at date default now()
-)
+);
 
 create table if not exists project_category (
     project_id INTEGER,
@@ -62,7 +62,7 @@ create table if not exists project_category (
     primary key (project_id, category_id), -- composite key --
     foreign key (project_id) references projects(project_id),
     foreign key (category_id) references categories(category_id)
-)
+);
 
 insert into categories (name) 
 values ('Environmental'), ('Educational'),  ('Community Service'), ('Health and Wellness');
@@ -71,7 +71,42 @@ insert into project_category (project_id, category_id)
 values (1, 2), (2, 1), (3, 3), (2, 4);
 
 
-select c.*, p.title, p.description 
- from categories c JOIN  project_category pc
- on c.category_id = pc.category_id 
- LEFT JOIN projects p on p.project_id = pc.project_id 
+CREATE TABLE roles (
+    role_id SERIAL PRIMARY KEY,
+    role_name VARCHAR(50) UNIQUE NOT NULL,
+    role_description TEXT
+);
+
+INSERT INTO roles (role_name, role_description) VALUES 
+    ('user', 'Standard user with basic access'),
+    ('admin', 'Administrator with full system access');
+
+-- Verify the data was inserted
+SELECT * FROM roles;
+
+
+CREATE TABLE users (
+    user_id SERIAL PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    email VARCHAR(100) UNIQUE NOT NULL,
+    password_hash VARCHAR(255) NOT NULL,
+    role_id INTEGER REFERENCES roles(role_id),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+
+
+-- Insert a test user
+INSERT INTO users (name, email, password_hash, role_id) 
+VALUES ('testuser', 'test@example.com', 'placeholder_hash', 1);
+
+-- Join users and roles to see complete information
+SELECT u.user_id, u.name, u.email, r.role_name, r.role_description
+FROM users u
+JOIN roles r ON u.role_id = r.role_id;
+
+-- Delete the test user
+DELETE FROM users WHERE email = 'test@example.com';
+
+
+UPDATE users SET role_id = (SELECT role_id FROM roles WHERE role_name = 'admin') WHERE email = 'admin@example.com';
