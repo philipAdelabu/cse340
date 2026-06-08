@@ -13,6 +13,19 @@
         <p><a  href="/users">View Users</a></p>
         <% } %>
 
+        <br><br>
+    
+
+        <% if (volunteeredProjects && volunteeredProjects.length > 0) { %>
+            <h3>Projects You've Volunteered For</h3>
+            <ul>
+                <% volunteeredProjects.forEach(project => { %>
+                    <li><a href="/project/<%= project.project_id %>"><%= project.title %></a> - Volunteered on: <%= (project.volunteered_at).toLocaleDateString('en-GB') %> 
+                    <a href="/remove-volunteer/<%= project.project_id %>/<%= project.volunteer_id %>" style="color: red; margin-left: 10px;">Remove</a></li>
+                <% }) %>
+            </ul>
+        <% } %>
+
 </main>
 
 <%- include('partials/footer') %>

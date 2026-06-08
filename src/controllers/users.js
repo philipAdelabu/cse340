@@ -1,6 +1,8 @@
 import bcrypt from 'bcrypt';
 import { createUser } from '../models/users.js';
 import { authenticateUser, getAllUsers } from '../models/users.js';
+import { getProjectsVolunteeredByUserId } from './volunteers.js';
+
 
 
 
@@ -44,10 +46,6 @@ const processLoginForm = async (req, res) => {
             req.session.user = user;
             req.flash('success', 'Login successful!');
 
-            if (res.locals.NODE_ENV === 'development') {
-                console.log('User logged in:', user);
-            }
-
             res.redirect('/dashboard');
         } else {
             req.flash('error', 'Invalid email or password.');
@@ -69,12 +67,15 @@ const processLogout = async (req, res) => {
     res.redirect('/login');
 };
 
-const showDashboard = (req, res) => {
+const showDashboard = async (req, res) => {
     const user = req.session.user;
+    const projectsVolunteered = await getProjectsVolunteeredByUserId(user.user_id);
+  
     res.render('dashboard', { 
         title: 'Dashboard',
         name: user.name,
-        email: user.email
+        email: user.email,
+        volunteeredProjects: projectsVolunteered
     });
 };
 

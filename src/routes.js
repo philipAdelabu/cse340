@@ -18,6 +18,9 @@ import { testErrorPage } from './controllers/errors.js';
 import { showUserRegistrationForm, processUserRegistrationForm, showLoginForm, processLoginForm, processLogout, showDashboard, viewUsers} from './controllers/users.js';
 import { requireLogin, requireRole } from './middleware/index.js';
 
+import { volunteerForProjectController, removeVolunteerFromProjectController } from './controllers/volunteers.js';
+
+
 const router = express.Router();
 
 router.get('/', showHomePage);
@@ -79,6 +82,9 @@ router.get('/dashboard', requireLogin, showDashboard);
 
 router.get('/users', requireRole('admin'), viewUsers); // Route to view all users (admin only)
 
+
+router.get('/volunteer/:projectId', requireLogin, volunteerForProjectController);
+router.get('/remove-volunteer/:projectId/:volunteerId', requireLogin, removeVolunteerFromProjectController);
 
 // error-handling routes
 router.get('/test-error', testErrorPage);

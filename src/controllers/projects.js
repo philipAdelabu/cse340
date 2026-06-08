@@ -8,7 +8,7 @@ import { getCategoryByProjectId } from '../models/categories.js';
 import { createProject } from '../models/projects.js';
 import { validationResult, body } from 'express-validator';
 import { redirectError } from '../utils/redirectError.js';
-
+import { getProjectVoluneer } from '../models/volunteers.js';
 
 const projectValidation = [
     body('title')
@@ -52,6 +52,17 @@ const showProjectDetailsPage = async (req, res) => {
     if (!project) {
         return res.status(404).send('Project not found');
     }
+    
+    if(req.session.user) {
+        const volunteer = await getProjectVoluneer(projectId, req.session.user.user_id);
+        if (volunteer) {
+            project.isUserVolunteer = true;
+            project.volunteer_id = volunteer.volunteer_id;
+        } else {
+            project.isUserVolunteer = false;
+        }
+    }
+
     const categories = await getCategoriesByProjectId(projectId);
     const title = project.title;
     res.render('project', {title, project, categories});

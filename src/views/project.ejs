@@ -24,5 +24,20 @@
         <a href="/assign-categories/<%= project.project_id %>">Edit Categories</a> &nbsp;&nbsp;&nbsp;&nbsp; <a href="/edit-project/<%= project.project_id %>">Edit Project</a>
         <% } %>
          
+        <br><br><br>
+         <% if(isLoggedIn){
+                  if(project.isUserVolunteer){ %>
+                    <p>You have already volunteered for this project.</p>
+                    <a href="/remove-volunteer/<%= project.project_id %>/<%= project.volunteer_id %>" style="color: red;">Remove Volunteer</a>
+                  <% } else { %>
+                     <a href="/volunteer/<%= project.project_id %>">Volunteer for this project</a>
+                  <% } %>
+              
+           <% } else { %>
+           <a href="/login">Login to volunteer for this project</a>
+            <% } %>
+        
+
+
     </main>
 <%- include('partials/footer') %>

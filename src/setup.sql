@@ -71,7 +71,7 @@ insert into project_category (project_id, category_id)
 values (1, 2), (2, 1), (3, 3), (2, 4);
 
 
-CREATE TABLE roles (
+CREATE TABLE IF NOT EXISTS roles (
     role_id SERIAL PRIMARY KEY,
     role_name VARCHAR(50) UNIQUE NOT NULL,
     role_description TEXT
@@ -85,7 +85,7 @@ INSERT INTO roles (role_name, role_description) VALUES
 SELECT * FROM roles;
 
 
-CREATE TABLE users (
+CREATE TABLE IF NOT EXISTS users (
     user_id SERIAL PRIMARY KEY,
     name VARCHAR(100) NOT NULL,
     email VARCHAR(100) UNIQUE NOT NULL,
@@ -110,3 +110,12 @@ DELETE FROM users WHERE email = 'test@example.com';
 
 
 UPDATE users SET role_id = (SELECT role_id FROM roles WHERE role_name = 'admin') WHERE email = 'admin@example.com';
+
+
+
+CREATE TABLE IF NOT EXISTS volunteers (
+    volunteer_id SERIAL PRIMARY KEY,
+    user_id INTEGER REFERENCES users(user_id) ON DELETE CASCADE,
+    project_id INTEGER REFERENCES projects(project_id) ON DELETE CASCADE,
+    volunteered_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
